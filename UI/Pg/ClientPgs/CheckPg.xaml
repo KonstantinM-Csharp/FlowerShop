@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:FlowerShop.UI.Pg.ClientPgs"
       mc:Ignorable="d" 
       xmlns:uc="clr-namespace:FlowerShop.UI.UC"
-      d:DesignHeight="450" d:DesignWidth="800">
+      d:DesignHeight="450" d:DesignWidth="800" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -32,9 +32,40 @@
                     Grid.RowSpan="2"
                     Orientation="Vertical"
                     Background="White">
-            <TextBlock Text="Чек" 
+            <Grid MinHeight="150">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Чек" Grid.Column="0" Grid.ColumnSpan="2"
                        TextAlignment="Center"
-                       FontSize="26" Height="34"></TextBlock>
+                       FontSize="26" Height="34" Margin="115,9,115,32">
+                </TextBlock>
+
+                <TextBlock Text="Магазин Магия цветов" Grid.Column="0" Grid.ColumnSpan="2"
+                       TextAlignment="Center"
+                       FontSize="15" Height="34" Margin="115,38,115,3"></TextBlock>
+                <TextBlock 
+                        TextAlignment="Center"
+                        FontSize="16" Text="Покупатель:"  Grid.Row="1" HorizontalAlignment="Left"></TextBlock>
+
+                <TextBlock x:Name="userDataTxtBlck"
+                        TextAlignment="Center" Grid.Row="1" Grid.Column="1"
+                        FontSize="16" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock 
+        TextAlignment="Center"
+        FontSize="16" Text="Телефон"  Grid.Row="2" HorizontalAlignment="Left"></TextBlock>
+
+                <TextBlock  x:Name="userPhoneTxtBlck"
+        TextAlignment="Center" Grid.Row="2" Grid.Column="1"
+        FontSize="16" Text="{Binding Fullname, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"></TextBlock>
+            </Grid>
+
             <ListView  x:Name="LVOrderItem" >
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -48,7 +79,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <TextBlock  Text="Итого:"  HorizontalAlignment="Left"></TextBlock>
+            <TextBlock x:Name="commonPriceTxtBlck"  HorizontalAlignment="Right"></TextBlock>
         </StackPanel>
+
         <Button Name="OkBttn"
                 Grid.Column="2"
                 Grid.Row="4"

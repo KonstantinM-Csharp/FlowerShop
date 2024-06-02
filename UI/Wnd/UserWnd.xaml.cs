@@ -27,7 +27,7 @@ namespace FlowerShop.UI.Wnd
 	{
         
         // Коллекция для хранения товаров в корзине. С помощью static все карточки могут изменять корзину.
-        private static List<Boquet> cartItems = new List<Boquet>();
+        private static List<Bouquet> cartItems = new List<Bouquet>();
 		public UserWnd()
         {
             InitializeComponent();

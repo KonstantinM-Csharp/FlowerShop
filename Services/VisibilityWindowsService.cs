@@ -48,9 +48,9 @@ namespace FlowerShop.Services
         {
             PageNavigationService.NavigateToAdminCatalog(_userWnd.MainFrame);
         }
-        public static void OpenAdminEditBoquetPg(Boquet boquet)
+        public static void OpenAdminEditBouquetPg(Bouquet bouquet)
         {
-            PageNavigationService.NavigateToEditBoquetPg(_userWnd.MainFrame, boquet);
+            PageNavigationService.NavigateToEditBouquetPg(_userWnd.MainFrame, bouquet);
         }
         public static void OpenOrdersPg()
         {

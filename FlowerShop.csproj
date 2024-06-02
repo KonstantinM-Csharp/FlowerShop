@@ -71,7 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\BasketItem.cs" />
-    <Compile Include="Data\Models\Boquet.cs">
+    <Compile Include="Data\Models\Bouquet.cs">
       <DependentUpon>FlowerMagicModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Models\FlowerMagicModel.Context.cs">
@@ -115,6 +115,7 @@
     <Compile Include="Services\FilterService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\PageNavigationService.cs" />
+    <Compile Include="Services\ParseService.cs" />
     <Compile Include="Services\VisibilityWindowsService.cs" />
     <Compile Include="UI\Pg\AdminPgs\AdminCatalogPg.xaml.cs">
       <DependentUpon>AdminCatalogPg.xaml</DependentUpon>
@@ -122,8 +123,8 @@
     <Compile Include="UI\Pg\AdminPgs\AnalysPg.xaml.cs">
       <DependentUpon>AnalysPg.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Pg\AdminPgs\EditBoquetPg.xaml.cs">
-      <DependentUpon>EditBoquetPg.xaml</DependentUpon>
+    <Compile Include="UI\Pg\AdminPgs\EditBouquetPg.xaml.cs">
+      <DependentUpon>EditBouquetPg.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Pg\AdminPgs\OrdersPg.xaml.cs">
       <DependentUpon>OrdersPg.xaml</DependentUpon>
@@ -167,7 +168,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Pg\AdminPgs\EditBoquetPg.xaml">
+    <Page Include="UI\Pg\AdminPgs\EditBouquetPg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

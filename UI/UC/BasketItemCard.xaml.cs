@@ -30,16 +30,16 @@ namespace FlowerShop.UI.UC
         }
         private void AddToBasket_Clicked(object sender, RoutedEventArgs e)
         {
-            var boquet = DataContext as BasketItem;
+            var bouquet = DataContext as BasketItem;
         
-            BasketService.AddBoquetToBasket(boquet.Boquet);;
+            BasketService.AddBouquetToBasket(bouquet.Bouquet);;
             UpdateBasketClicked?.Invoke(this, EventArgs.Empty);
         }
         private void RemoveFromBasket_Clicked(object sender, RoutedEventArgs e)
         {
-            var boquet = DataContext as BasketItem;
+            var bouquet = DataContext as BasketItem;
             
-                BasketService.DeleteBoquetFromBasket(boquet.Boquet);
+                BasketService.DeleteBouquetFromBasket(bouquet.Bouquet);
             UpdateBasketClicked?.Invoke(this, EventArgs.Empty);
 
         }

@@ -17,21 +17,22 @@ namespace FlowerShop.Data.Models
     {
         private static FlowerMagicEntities _context;
         public FlowerMagicEntities()
-            : base("name=FlowerMagicEntities1")
+            : base("name=FlowerMagicEntities2")
         {
         }
         public static FlowerMagicEntities GetContext()
         {
-            if (_context == null)
+            if(_context == null)
                 _context = new FlowerMagicEntities();
             return _context;
         }
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Boquet> Boquets { get; set; }
+        public virtual DbSet<Bouquet> Bouquets { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderItem> OrderItems { get; set; }
         public virtual DbSet<Role> Roles { get; set; }

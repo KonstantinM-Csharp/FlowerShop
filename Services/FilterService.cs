@@ -9,21 +9,28 @@ namespace FlowerShop.Services
 {
     class FilterService
     {
-        public static List<Boquet> FilterBoquets(string nameBoquetSearch = null, Size sizeBoquet = null)
+        public static List<Bouquet> FilterBouquets(string nameBouquetSearch = null, Size sizeBouquet = null, string status = null)
         {
-            var boquets = FlowerMagicEntities.GetContext().Boquets.ToList();
+            var bouquets = FlowerMagicEntities.GetContext().Bouquets.ToList();
 
-            if (!string.IsNullOrEmpty(nameBoquetSearch))
-                boquets = boquets.Where(x => x.Name.ToLower().Contains(nameBoquetSearch.ToLower())).ToList();
-            if (sizeBoquet != null)
-                boquets = boquets.Where(x => x.Size == sizeBoquet).ToList();
-
-            return boquets;
+            if (!string.IsNullOrEmpty(nameBouquetSearch))
+                bouquets = bouquets.Where(x => x.Name.ToLower().Contains(nameBouquetSearch.ToLower())).ToList();
+            if (sizeBouquet != null)
+                bouquets = bouquets.Where(x => x.Size == sizeBouquet).ToList();
+            if (status != null)
+                bouquets = bouquets.Where(x => x.Status == ParseService.ParseStringToStatus(status)).ToList();
+            return bouquets;
         }
         public static List<Order> FilterOrders()
         {
             var orders = FlowerMagicEntities.GetContext().Orders.ToList();
             return orders;
+        }
+
+        public static List<OrderItem> GetOrderItemsByOrder(Order order)
+        {
+            return FlowerMagicEntities.GetContext().OrderItems.Where(x => x.Order.Id == order.Id).ToList();
+
         }
     }
 }

@@ -26,6 +26,7 @@ namespace FlowerShop.UI.Pg.ClientPgs
     public partial class BasketPg : Page
     {
         private ObservableCollection<BasketItem> _basketItems;
+        private Order _order;
         public decimal CommonPrice { get => _basketItems.Select(x => x.Cost).Sum(); set { } }
         public BasketPg()
         {
@@ -35,11 +36,49 @@ namespace FlowerShop.UI.Pg.ClientPgs
 
         private void TakeOrder_Click(object sender, RoutedEventArgs e)
         {
-            DateTime dateOrder = DateTime.Now;
-            VisibilityWindowsService.OpenCheckPg();
+            try
+            {
+                TakeOrder();
+                TakeOrderItems();
+                AutorizationService.LastOrder = _order;
+                MessageBox.Show("Заказ успешно оформлен.");
+                VisibilityWindowsService.OpenCheckPg();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
-
+        private void TakeOrder()
+        {
+            _order = new Order();
+            _order.Date = DateTime.Now;
+            _order.UserId = AutorizationService.User.Id;
+            _order.TotalAmount = _basketItems.Select(x => x.Cost).Sum();
+            FlowerMagicEntities.GetContext().Orders.Add(_order);
+            FlowerMagicEntities.GetContext().SaveChanges();
+        }
+        private void TakeOrderItems()
+        {
+            try
+            {
+                foreach (var item in _basketItems)
+                {
+                    OrderItem orderItem = new OrderItem();
+                    orderItem.OrderId = _order.Id;
+                    orderItem.BouquetId = item.Bouquet.Id;
+                    orderItem.Price = item.Bouquet.Price;
+                    orderItem.Quantity = item.Count;
+                    FlowerMagicEntities.GetContext().OrderItems.Add(orderItem);
+                    FlowerMagicEntities.GetContext().SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void BackBttn_Click(object sender, RoutedEventArgs e)
         {
             VisibilityWindowsService.OpenCatalogPg();

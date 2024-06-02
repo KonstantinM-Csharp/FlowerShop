@@ -22,13 +22,13 @@ using System.Xml.Serialization;
 namespace FlowerShop.UI.Pg.AdminPgs
 {
     /// <summary>
-    /// Логика взаимодействия для EditBoquetPg.xaml
+    /// Логика взаимодействия для EditBouquetPg.xaml
     /// </summary>
-    public partial class EditBoquetPg : Page
+    public partial class EditBouquetPg : Page
     {
-        private Boquet _currentBoquet;
+        private Bouquet _currentBouquet;
         private int[] stars = { 1, 2, 3, 4, 5 };
-        public EditBoquetPg()
+        public EditBouquetPg()
         {
             InitializeComponent();
         }
@@ -37,7 +37,7 @@ namespace FlowerShop.UI.Pg.AdminPgs
         {
             StringBuilder errors = new StringBuilder();
 
-            if (string.IsNullOrEmpty(_currentBoquet.Name))
+            if (string.IsNullOrEmpty(_currentBouquet.Name))
                 errors.AppendLine("Укажите название букета.");
             else
             {
@@ -62,17 +62,17 @@ namespace FlowerShop.UI.Pg.AdminPgs
             if (SizeCmBx.SelectedItem==null)
                 errors.AppendLine("Выберите размер букета.");
 
-            _currentBoquet.Status = ParseStringToStatus(StatusCmBx.SelectedItem.ToString());
-            _currentBoquet.Size = SizeCmBx.SelectedItem as Data.Models.Size;
+            _currentBouquet.Status = ParseService.ParseStringToStatus(StatusCmBx.SelectedItem.ToString());
+            _currentBouquet.Size = SizeCmBx.SelectedItem as Data.Models.Size;
 
             if (errors.Length > 0)
             {
                 MessageBox.Show(errors.ToString());
                 return;
             }
-            if (_currentBoquet.Id == 0)
+            if (_currentBouquet.Id == 0)
             {
-                FlowerMagicEntities.GetContext().Boquets.Add(_currentBoquet);
+                FlowerMagicEntities.GetContext().Bouquets.Add(_currentBouquet);
             }
 
             try
@@ -89,53 +89,41 @@ namespace FlowerShop.UI.Pg.AdminPgs
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             SizeCmBx.ItemsSource = FlowerMagicEntities.GetContext().Sizes.ToList();
-            SizeCmBx.SelectedItem = _currentBoquet.Size;
+            SizeCmBx.SelectedItem = _currentBouquet.Size;
             StatusCmBx.ItemsSource = new string[] { "Активен", "Неактивен" };
-            StatusCmBx.SelectedItem = ParseStatusToString(_currentBoquet.Status);
+            StatusCmBx.SelectedItem = ParseService.ParseStatusToString(_currentBouquet.Status);
             UpdatePhoto();
         }
-        public void SetBoquet(Boquet boquet)
+        public void SetBouquet(Bouquet Bouquet)
         {
-            if (boquet == null)
-                _currentBoquet = new Boquet();
+            if (Bouquet == null)
+                _currentBouquet = new Bouquet();
             else
-                _currentBoquet = boquet;
-            DataContext = _currentBoquet;
+                _currentBouquet = Bouquet;
+            DataContext = _currentBouquet;
         }
 
-        private bool ParseStringToStatus(string status)
-        {
-            if (status == "Активен")
-                return true;
-            else return false;
-        }
-        private string ParseStatusToString(bool status)
-        {
-            if (status == true)
-                return "Активен";
-            else return "Неактивен";
-        }
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             VisibilityWindowsService.OpenAdminCatalogPg();
         }
 
-        private void btnPhotoBoquet_Click(object sender, RoutedEventArgs e)
+        private void btnPhotoBouquet_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
             if (openFileDialog.ShowDialog() == true)
             {
                 var photoData = File.ReadAllBytes(openFileDialog.FileName);
-                _currentBoquet.Photo = photoData;
+                _currentBouquet.Photo = photoData;
             }
             UpdatePhoto();
         }
         private void UpdatePhoto()
         {
-            if (_currentBoquet.Photo == null)
+            if (_currentBouquet.Photo == null)
             {
-                PhotoBoquet.Source = null;
+                PhotoBouquet.Source = null;
                 return;
             }
 
@@ -144,11 +132,11 @@ namespace FlowerShop.UI.Pg.AdminPgs
                 // Create a BitmapImage to display the selected photo
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
-                bitmap.StreamSource = new MemoryStream(_currentBoquet.Photo);
+                bitmap.StreamSource = new MemoryStream(_currentBouquet.Photo);
                 bitmap.EndInit();
 
-                // Assuming you have an Image control named PhotoBoquet to display the photo
-                PhotoBoquet.Source = bitmap;
+                // Assuming you have an Image control named PhotoBouquet to display the photo
+                PhotoBouquet.Source = bitmap;
             }
             catch (Exception ex)
             {

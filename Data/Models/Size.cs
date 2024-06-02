@@ -17,14 +17,14 @@ namespace FlowerShop.Data.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Size()
         {
-            this.Boquets = new HashSet<Boquet>();
+            this.Bouquets = new HashSet<Bouquet>();
         }
     
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public int CountFlowers { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Boquet> Boquets { get; set; }
+        public virtual ICollection<Bouquet> Bouquets { get; set; }
     }
 }

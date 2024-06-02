@@ -28,15 +28,15 @@ namespace FlowerShop.UI.UC
         }
         
 
-        private void EditBoquet_Clicked(object sender, RoutedEventArgs e)
+        private void EditBouquet_Clicked(object sender, RoutedEventArgs e)
         {
-            var boquet = DataContext as Boquet;
-            VisibilityWindowsService.OpenAdminEditBoquetPg(boquet);
+            var bouquet = DataContext as Bouquet;
+            VisibilityWindowsService.OpenAdminEditBouquetPg(bouquet);
         }
 
-        private void DeleteBoquet_Clicked(object sender, RoutedEventArgs e)
+        private void DeleteBouquet_Clicked(object sender, RoutedEventArgs e)
         {
-            var boquet = DataContext as Boquet;
+            var bouquet = DataContext as Bouquet;
         }
     }
 }

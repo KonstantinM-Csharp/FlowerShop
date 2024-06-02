@@ -27,44 +27,47 @@ namespace FlowerShop.UI.Pg.ClientPgs
         public CatalogPg()
         {
             InitializeComponent();
-            LViewBoquets.ItemsSource = FlowerMagicEntities.GetContext().Boquets.ToList();
-            var sizesBoquets = FlowerMagicEntities.GetContext().Sizes.ToList();
-            sizesBoquets.Insert(0, new Size
+            LViewBouquets.ItemsSource = FlowerMagicEntities.GetContext().Bouquets.ToList();
+            var sizesBouquets = FlowerMagicEntities.GetContext().Sizes.ToList();
+            sizesBouquets.Insert(0, new Size
             {
                 Name = "Все размеры"
             });
-            SizeBoquetLstBx.ItemsSource = sizesBoquets;
+            SizeBouquetLstBx.ItemsSource = sizesBouquets;
         }
 
-        private void UpdateBoquets()
+
+        private void UpdateBouquets()
         {
-            List<Boquet> filterBoquets;
-            if(SizeBoquetLstBx.SelectedIndex!=0)
-               filterBoquets =  FilterService.FilterBoquets(SearchBoquetTxtBx.Text, (Size)SizeBoquetLstBx.SelectedItem);
+            List<Bouquet> filterBouquets;
+            if(SizeBouquetLstBx.SelectedIndex!=0)
+               filterBouquets =  FilterService.FilterBouquets(SearchBouquetTxtBx.Text, (Size)SizeBouquetLstBx.SelectedItem);
             else
-               filterBoquets = FilterService.FilterBoquets(SearchBoquetTxtBx.Text, null);
+               filterBouquets = FilterService.FilterBouquets(SearchBouquetTxtBx.Text, null);
 
-            if(filterBoquets.Count==0)
-            {
+            filterBouquets = filterBouquets.Where(x=>x.Status==true).ToList();
 
-            }
-
-            LViewBoquets.ItemsSource = filterBoquets;
+            LViewBouquets.ItemsSource = filterBouquets;
         }
 
-        private void SearchBoquetTxtBx_TextChanged(object sender, TextChangedEventArgs e)
+        private void SearchBouquetTxtBx_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateBoquets();
+            UpdateBouquets();
         }
 
-        private void SizeBoquetLstBx_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SizeBouquetLstBx_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateBoquets();
+            UpdateBouquets();
         }
 
         private void BttnOpenBasket_Click(object sender, RoutedEventArgs e)
         {
             VisibilityWindowsService.OpenBasketPg();
+        }
+
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            UpdateBouquets();
         }
     }
 }

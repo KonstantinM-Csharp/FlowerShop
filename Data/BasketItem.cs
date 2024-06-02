@@ -9,8 +9,8 @@ namespace FlowerShop.Data
 {
     class BasketItem
     {
-        public Boquet Boquet { get; set; }
+        public Bouquet Bouquet { get; set; }
         public int Count { get; set; }
-        public decimal Cost { get { return Boquet.Price * Count; } }
+        public decimal Cost { get { return Bouquet.Price * Count; } }
     }
 }

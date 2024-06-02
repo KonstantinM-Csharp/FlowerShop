@@ -9,14 +9,17 @@
     <StackPanel
                         Orientation="Horizontal" >
         <TextBlock Name="NameOrder"
-                           Text="{Binding Boquet.Name}" 
+                           Text="{Binding Bouquet.Name}" 
                            FontWeight="Bold" 
                            FontSize="16"/>
 
-        <TextBlock Text="{Binding Count}"
+        <TextBlock Text="{Binding Quantity}"
                            TextWrapping="Wrap" Width="69" />
 
         <TextBlock Text="{Binding Cost}"
+                           TextWrapping="Wrap"  Width="93"/>
+
+        <TextBlock Text="{Binding Price}"
                            TextWrapping="Wrap"  Width="93"/>
 
     </StackPanel>

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:FlowerShop.UI.Pg.AdminPgs" xmlns:uc="clr-namespace:FlowerShop.UI.UC"
       mc:Ignorable="d" 
       d:DesignHeight="450" 
-      d:DesignWidth="800">
+      d:DesignWidth="800" IsVisibleChanged="Page_IsVisibleChanged">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"></ColumnDefinition>
@@ -29,51 +29,55 @@
                    HorizontalAlignment="Center" 
                    Content="Каталог товаров">
         </Label>
-        <TextBox x:Name="SearchBoquetTxtBx"
+        <TextBox x:Name="SearchBouquetTxtBx"
             Grid.Column="1"
             Grid.Row="1"
-            TextChanged="SearchBoquetTxtBx_TextChanged">
+            TextChanged="SearchBouquetTxtBx_TextChanged">
         </TextBox>
         <TextBlock Text="Выберите размер букета:"
                    Grid.Column="2"
                    Grid.Row="1"
                    VerticalAlignment="Top"></TextBlock>
-        <ComboBox x:Name="SizeBoquetLstBx"
+        <ComboBox x:Name="SizeBouquetLstBx"
                  Grid.Column="2"
                  Grid.Row="1"
-                 SelectionChanged="SizeBoquetLstBx_SelectionChanged"
+                 SelectionChanged="SizeBouquetLstBx_SelectionChanged"
                   DisplayMemberPath="Name">
         </ComboBox>
-
-        <ListView Name="LViewBoquets"
+        <TextBlock Text="Выберите статус букета:"
+            Grid.Column="3"
+            Grid.Row="1"
+            VerticalAlignment="Top"></TextBlock>
+        <ComboBox x:Name="StatusLstBx"
+         Grid.Column="3"
+         Grid.Row="1"
+         SelectionChanged="StatusLstBx_SelectionChanged">
+        </ComboBox>
+        <ListView Name="LViewBouquets"
           Grid.Row="2"
           Grid.Column="1"
           Grid.ColumnSpan="3">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="3" />
+                    <UniformGrid Columns="3"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <uc:FlowerCardAdmin Margin="20"/>
+                    <uc:FlowerCardAdmin Margin="30"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Name="BttnEditBoquet"
+        <Button Name="BttnEditBouquet"
                Grid.Row="3"
                Grid.Column="1"
                Content="Создать букет"
-                Click="BttnCreateBoquet_Click"></Button>
-        <Button Name="BttnArchiveBoquet"
-                 Grid.Row="3"
-                Grid.Column="2"
-                Content="Удалитть"></Button>
-        <Button Name="BttnOrdersBoquet"
+                Click="BttnCreateBouquet_Click"></Button>
+        <Button Name="BttnOrdersBouquet"
                 Grid.Row="3"
                 Grid.Column="3"
                 Content="Заказы"
-                Click="BttnOrdersBoquet_Click"></Button>
+                Click="BttnOrdersBouquet_Click"></Button>
     </Grid>
 </Page>
 

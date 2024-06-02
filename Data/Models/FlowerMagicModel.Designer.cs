@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "C:\Users\049_13\Desktop\FlowerShop\FlowerShop\FlowerShop\FlowerShop\Data\Models\FlowerMagicModel.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\Konstantin\Desktop\FlowerShop\Data\Models\FlowerMagicModel.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

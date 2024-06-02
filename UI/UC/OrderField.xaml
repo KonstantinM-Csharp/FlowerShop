@@ -6,33 +6,45 @@
              xmlns:local="clr-namespace:FlowerShop.UI.UC"
              mc:Ignorable="d" 
              Height="82.42" 
-             Width="488.946">
+             Width="488.946" IsVisibleChanged="UserControl_IsVisibleChanged">
     <Border BorderBrush="Gray" 
             BorderThickness="1" 
             CornerRadius="5" 
             Background="White">
-        <Grid Margin="5">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                <ColumnDefinition  Width="2*"></ColumnDefinition>
+                <ColumnDefinition  Width="*"></ColumnDefinition>
+                <ColumnDefinition  Width="*"></ColumnDefinition>
+                <ColumnDefinition  Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0"
-                        Grid.Column="0"
-                        Orientation="Vertical" >
-                <TextBlock Name="NameOrder"
-                           Text="{Binding Id}" 
-                           FontWeight="Bold" 
-                           FontSize="16"/>
-                <TextBlock Text="{Binding OrderItems.Boquet.Name}"
-                           TextWrapping="Wrap"/>
+            <TextBlock Name="NameOrder"
+                        Text="{Binding Id}" 
+                        FontWeight="Bold" 
+                        FontSize="16" 
+                        Grid.Column="0"/>
+     
+                
+                <ListView Name="LViewBoquets"
+                            Grid.Column="1">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <local:CheckItem></local:CheckItem>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                
-            </StackPanel>
-            <StackPanel Grid.Row="0"
-                        Grid.Column="1"
+            <StackPanel
+                        Grid.Column="2"
                         Orientation="Vertical">
                 <TextBlock Text="{Binding User.FisrtName}" 
                            TextWrapping="Wrap"/>
@@ -41,8 +53,7 @@
                 <TextBlock Text="{Binding User.Phone}" 
                            TextWrapping="Wrap"/>
             </StackPanel>
-            <StackPanel Grid.Row="0"
-                        Grid.Column="2"
+            <StackPanel Grid.Column="3"
                         Orientation="Vertical">
                 <TextBlock Text="{Binding Date}" 
                            FontWeight="Bold"/>

@@ -13,6 +13,7 @@ namespace FlowerShop.Services
     {
         public static User User { get; private set; }
         public static UserRole Role { get; private set; }
+        public static Order LastOrder { get; set; }
 
         public static bool LogIn(string login, string password)
         {

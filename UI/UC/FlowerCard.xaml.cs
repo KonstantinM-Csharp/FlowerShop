@@ -30,10 +30,10 @@ namespace FlowerShop.UI.UC
         }
         private void AddToBasket_Clicked(object sender, RoutedEventArgs e)
         {
-            var boquet = DataContext as Boquet;
-            if (boquet != null)
+            var bouquet = DataContext as Bouquet;
+            if (bouquet != null)
             {
-                BasketService.AddBoquetToBasket(boquet);
+                BasketService.AddBouquetToBasket(bouquet);
                 MessageBox.Show("Товар добавлен в корзину.");
                 UpdateCount();
             }
@@ -41,20 +41,20 @@ namespace FlowerShop.UI.UC
         
         private void RemoveFromBasket_Clicked(object sender, RoutedEventArgs e)
         {
-            var boquet = DataContext as Boquet;
-            if (boquet != null)
+            var bouquet = DataContext as Bouquet;
+            if (bouquet != null)
             {
-                BasketService.DeleteBoquetFromBasket(boquet);
+                BasketService.DeleteBouquetFromBasket(bouquet);
                 MessageBox.Show("Товар удален из корзины.");
                 UpdateCount();
             }
         }
         private void UpdateCount()
         {
-            var countBoquet = BasketService.GetBasket().FirstOrDefault(x => x.Boquet == DataContext as Boquet);
-            if (countBoquet == null)
+            var countBouquet = BasketService.GetBasket().FirstOrDefault(x => x.Bouquet == DataContext as Bouquet);
+            if (countBouquet == null)
                 CountTxtBx.Text = "";
-            else CountTxtBx.Text = countBoquet.Count.ToString();
+            else CountTxtBx.Text = countBouquet.Count.ToString();
         }
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {

@@ -15,9 +15,9 @@ namespace FlowerShop.Services
     class PageNavigationService
     {
         private static BasketPg basketPg = new BasketPg();
-        private static CatalogPg catalogPg = new CatalogPg();
+        private static CatalogPg catalogPg= new CatalogPg();
         private static AdminCatalogPg adminCatalogPg = new AdminCatalogPg();
-        private static EditBoquetPg editBoquetPg = new EditBoquetPg();
+        private static EditBouquetPg editBouquetPg = new EditBouquetPg();
         private static CheckPg checkPg = new CheckPg();
         private static OrdersPg ordersPg = new OrdersPg();
         private static AnalysPg analysPg = new AnalysPg();
@@ -33,10 +33,10 @@ namespace FlowerShop.Services
         {
             frame.Navigate(adminCatalogPg);
         }
-        public static void NavigateToEditBoquetPg(Frame frame, Boquet boquet)
+        public static void NavigateToEditBouquetPg(Frame frame, Bouquet Bouquet)
         {
-            editBoquetPg.SetBoquet(boquet);
-            frame.Navigate(editBoquetPg);
+            editBouquetPg.SetBouquet(Bouquet);
+            frame.Navigate(editBouquetPg);
         }
         public static void NavigateToCheckPg(Frame frame)
         {

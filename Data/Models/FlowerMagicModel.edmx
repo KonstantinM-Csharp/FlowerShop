@@ -5,24 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище FlowerMagicModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Boquet">
+        <EntityType Name="Bouquet">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Price" Type="money" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
-          <Property Name="SizeId" Type="int" Nullable="false" />
+          <Property Name="SizeId" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="Photo" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="TotalAmount" Type="money" Nullable="false" />
@@ -30,10 +30,10 @@
         <EntityType Name="OrderItem">
           <Key>
             <PropertyRef Name="OrderId" />
-            <PropertyRef Name="BoquetId" />
+            <PropertyRef Name="BouquetId" />
           </Key>
           <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="BoquetId" Type="int" Nullable="false" />
+          <Property Name="BouquetId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="Price" Type="money" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
@@ -50,7 +50,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="CountFlowers" Type="int" Nullable="false" />
         </EntityType>
@@ -68,7 +68,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Patronomic" Type="nvarchar" MaxLength="100" />
           <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -89,12 +89,12 @@
           <End Role="Size" Type="Self.Size" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Boquet" Type="Self.Boquet" Multiplicity="*" />
+          <End Role="Bouquet" Type="Self.Bouquet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Size">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Boquet">
+            <Dependent Role="Bouquet">
               <PropertyRef Name="SizeId" />
             </Dependent>
           </ReferentialConstraint>
@@ -114,16 +114,16 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItem_Boquet">
-          <End Role="Boquet" Type="Self.Boquet" Multiplicity="1">
+          <End Role="Bouquet" Type="Self.Bouquet" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Boquet">
+            <Principal Role="Bouquet">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="OrderItem">
-              <PropertyRef Name="BoquetId" />
+              <PropertyRef Name="BouquetId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -166,7 +166,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище FlowerMagicModelContainer">
-          <EntitySet Name="Boquet" EntityType="Self.Boquet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bouquet" EntityType="Self.Bouquet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderItem" EntityType="Self.OrderItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -176,14 +176,14 @@
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Boquet_Size" Association="Self.FK_Boquet_Size">
             <End Role="Size" EntitySet="Size" />
-            <End Role="Boquet" EntitySet="Boquet" />
+            <End Role="Bouquet" EntitySet="Bouquet" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
             <End Role="User" EntitySet="User" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderItem_Boquet" Association="Self.FK_OrderItem_Boquet">
-            <End Role="Boquet" EntitySet="Boquet" />
+            <End Role="Bouquet" EntitySet="Bouquet" />
             <End Role="OrderItem" EntitySet="OrderItem" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderItem_Order" Association="Self.FK_OrderItem_Order">
@@ -204,26 +204,26 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FlowerMagicModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Boquet">
+        <EntityType Name="Bouquet">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
-          <Property Name="SizeId" Type="Int32" Nullable="false" />
+          <Property Name="SizeId" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Size" Relationship="Self.FK_Boquet_Size" FromRole="Boquet" ToRole="Size" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Boquet" FromRole="Boquet" ToRole="OrderItem" />
+          <NavigationProperty Name="Size" Relationship="Self.FK_Boquet_Size" FromRole="Bouquet" ToRole="Size" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Boquet" FromRole="Bouquet" ToRole="OrderItem" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TotalAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
@@ -233,14 +233,14 @@
         <EntityType Name="OrderItem">
           <Key>
             <PropertyRef Name="OrderId" />
-            <PropertyRef Name="BoquetId" />
+            <PropertyRef Name="BouquetId" />
           </Key>
           <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="BoquetId" Type="Int32" Nullable="false" />
+          <Property Name="BouquetId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Boquet" Relationship="Self.FK_OrderItem_Boquet" FromRole="OrderItem" ToRole="Boquet" />
+          <NavigationProperty Name="Bouquet" Relationship="Self.FK_OrderItem_Boquet" FromRole="OrderItem" ToRole="Bouquet" />
           <NavigationProperty Name="Order" Relationship="Self.FK_OrderItem_Order" FromRole="OrderItem" ToRole="Order" />
         </EntityType>
         <EntityType Name="Role">
@@ -256,10 +256,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CountFlowers" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Boquets" Relationship="Self.FK_Boquet_Size" FromRole="Size" ToRole="Boquet" />
+          <NavigationProperty Name="Bouquets" Relationship="Self.FK_Boquet_Size" FromRole="Size" ToRole="Bouquet" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -275,7 +275,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Patronomic" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
@@ -300,27 +300,27 @@
           <End Role="Size" Type="Self.Size" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Boquet" Type="Self.Boquet" Multiplicity="*" />
+          <End Role="Bouquet" Type="Self.Bouquet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Size">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Boquet">
+            <Dependent Role="Bouquet">
               <PropertyRef Name="SizeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItem_Boquet">
-          <End Role="Boquet" Type="Self.Boquet" Multiplicity="1">
+          <End Role="Bouquet" Type="Self.Bouquet" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Boquet">
+            <Principal Role="Bouquet">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="OrderItem">
-              <PropertyRef Name="BoquetId" />
+              <PropertyRef Name="BouquetId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -376,8 +376,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FlowerMagicEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Boquets" EntityType="Self.Boquet" />
+        <EntityContainer Name="FlowerMagicEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bouquets" EntityType="Self.Bouquet" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
@@ -387,10 +387,10 @@
           <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
           <AssociationSet Name="FK_Boquet_Size" Association="Self.FK_Boquet_Size">
             <End Role="Size" EntitySet="Sizes" />
-            <End Role="Boquet" EntitySet="Boquets" />
+            <End Role="Bouquet" EntitySet="Bouquets" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderItem_Boquet" Association="Self.FK_OrderItem_Boquet">
-            <End Role="Boquet" EntitySet="Boquets" />
+            <End Role="Bouquet" EntitySet="Bouquets" />
             <End Role="OrderItem" EntitySet="OrderItems" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
@@ -415,10 +415,10 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище FlowerMagicModelContainer" CdmEntityContainer="FlowerMagicEntities">
-          <EntitySetMapping Name="Boquets">
-            <EntityTypeMapping TypeName="FlowerMagicModel.Boquet">
-              <MappingFragment StoreEntitySet="Boquet">
+        <EntityContainerMapping StorageEntityContainer="Хранилище FlowerMagicModelContainer" CdmEntityContainer="FlowerMagicEntities2">
+          <EntitySetMapping Name="Bouquets">
+            <EntityTypeMapping TypeName="FlowerMagicModel.Bouquet">
+              <MappingFragment StoreEntitySet="Bouquet">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -444,7 +444,7 @@
             <EntityTypeMapping TypeName="FlowerMagicModel.OrderItem">
               <MappingFragment StoreEntitySet="OrderItem">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="BoquetId" ColumnName="BoquetId" />
+                <ScalarProperty Name="BouquetId" ColumnName="BouquetId" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />

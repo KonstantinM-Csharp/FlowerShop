@@ -15,12 +15,12 @@ namespace FlowerShop.Data.Models
     public partial class OrderItem
     {
         public int OrderId { get; set; }
-        public int BoquetId { get; set; }
+        public int BouquetId { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public string Comment { get; set; }
     
-        public virtual Boquet Boquet { get; set; }
+        public virtual Bouquet Bouquet { get; set; }
         public virtual Order Order { get; set; }
     }
 }

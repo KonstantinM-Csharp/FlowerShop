@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FlowerShop.Data.Models;
+using FlowerShop.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,13 @@ namespace FlowerShop.UI.UC
         public OrderField()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+            var order = DataContext as Order;
+            LViewBoquets.ItemsSource = FilterService.GetOrderItemsByOrder(order);
         }
     }
 }

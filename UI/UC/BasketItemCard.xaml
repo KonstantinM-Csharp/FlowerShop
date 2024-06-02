@@ -23,10 +23,12 @@
                         Grid.ColumnSpan="3"
                         Orientation="Horizontal" >
                 <TextBlock Name="NameOrder"
-                           Text="{Binding Boquet.Name}" 
+                           Text="{Binding Bouquet.Name}" 
                            FontWeight="Bold" 
                            FontSize="16"/>
                 <TextBlock Text="{Binding Cost}"
+                           TextWrapping="Wrap" Margin="0,28" Width="93"/>
+                <TextBlock Text="{Binding Bouquet.Size.Name}"
                            TextWrapping="Wrap" Margin="0,28" Width="93"/>
             </StackPanel>
             <StackPanel Grid.Column="2" Orientation="Horizontal">

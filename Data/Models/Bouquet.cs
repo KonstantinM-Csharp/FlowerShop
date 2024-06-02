@@ -12,10 +12,10 @@ namespace FlowerShop.Data.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Boquet
+    public partial class Bouquet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Boquet()
+        public Bouquet()
         {
             this.OrderItems = new HashSet<OrderItem>();
         }
@@ -26,7 +26,7 @@ namespace FlowerShop.Data.Models
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public bool Status { get; set; }
-        public int SizeId { get; set; }
+        public string SizeId { get; set; }
         public byte[] Photo { get; set; }
     
         public virtual Size Size { get; set; }

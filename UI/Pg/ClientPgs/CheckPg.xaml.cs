@@ -29,6 +29,12 @@ namespace FlowerShop.UI.Pg.ClientPgs
     /// </summary>
     public partial class CheckPg : Page
     {
+        public string Fullname {
+            get;
+            set;
+        }
+        public string Number { get; set; }
+        public decimal CommonPrice { get; set; }
         public CheckPg()
         {
             InitializeComponent();
@@ -37,12 +43,15 @@ namespace FlowerShop.UI.Pg.ClientPgs
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             LoadBasketItems();
-
+            userDataTxtBlck.Text = AutorizationService.User.FirstName +" "+ AutorizationService.User.LastName;
+            userPhoneTxtBlck.Text = AutorizationService.User.Phone;
+            commonPriceTxtBlck.Text = AutorizationService.LastOrder.TotalAmount.ToString();
         }
         private void LoadBasketItems()
         {
             LVOrderItem.ItemsSource = null;
-            LVOrderItem.ItemsSource = BasketService.GetBasket();
+            if(AutorizationService.LastOrder!=null)
+                     LVOrderItem.ItemsSource = FlowerMagicEntities.GetContext().OrderItems.Where(x=>x.Order.Id==AutorizationService.LastOrder.Id).ToList();
         }
 
         private void OkBttn_Click(object sender, RoutedEventArgs e)

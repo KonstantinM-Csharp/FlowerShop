@@ -29,11 +29,6 @@
                    HorizontalAlignment="Center" 
                    Content="Заказы">
         </Label>
-        <TextBox x:Name="SearchBoquetTxtBx"
-            Grid.Column="1"
-            Grid.Row="1"
-            TextChanged="SearchBoquetTxtBx_TextChanged">
-        </TextBox>
         <TextBlock Text="Выберите размер букета:"
                    Grid.Column="2"
                    Grid.Row="1"

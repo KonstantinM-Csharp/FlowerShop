@@ -13,26 +13,26 @@ namespace FlowerShop.Services
     {
         private static ObservableCollection<BasketItem> _basket = new ObservableCollection<BasketItem>();
 
-        public static void AddBoquetToBasket(Boquet boquet)
+        public static void AddBouquetToBasket(Bouquet bouquet)
         {
-            if (_basket.Any(x => x.Boquet == boquet))
+            if (_basket.Any(x => x.Bouquet == bouquet))
             {
-                _basket.FirstOrDefault(x => x.Boquet == boquet).Count++;
+                _basket.FirstOrDefault(x => x.Bouquet == bouquet).Count++;
             }
             else
             {
-                _basket.Add(new BasketItem() { Boquet = boquet, Count = 1 });
+                _basket.Add(new BasketItem() { Bouquet = bouquet, Count = 1 });
             }
         }
-        public static void DeleteBoquetFromBasket(Boquet boquet)
+        public static void DeleteBouquetFromBasket(Bouquet bouquet)
         {
-            if (_basket.FirstOrDefault(x => x.Boquet == boquet).Count > 1)
+            if (_basket.FirstOrDefault(x => x.Bouquet == bouquet).Count > 1)
             {
-                _basket.FirstOrDefault(x => x.Boquet == boquet).Count--;
+                _basket.FirstOrDefault(x => x.Bouquet == bouquet).Count--;
             }
             else
             {
-                _basket.Remove(_basket.FirstOrDefault(x => x.Boquet == boquet));
+                _basket.Remove(_basket.FirstOrDefault(x => x.Bouquet == bouquet));
             }
         }
         public static ObservableCollection<BasketItem> GetBasket()

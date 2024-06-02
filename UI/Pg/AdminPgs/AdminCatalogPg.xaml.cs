@@ -23,53 +23,70 @@ namespace FlowerShop.UI.Pg.AdminPgs
     /// </summary>
     public partial class AdminCatalogPg : Page
     {
+        private string[] statusBouquet = new string[] { "Все", "Активен", "Неактивен" };
         public AdminCatalogPg()
         {
             InitializeComponent();
-            LViewBoquets.ItemsSource = FlowerMagicEntities.GetContext().Boquets.ToList();
-            var sizesBoquets = FlowerMagicEntities.GetContext().Sizes.ToList();
-            sizesBoquets.Insert(0, new Size
+            LViewBouquets.ItemsSource = FlowerMagicEntities.GetContext().Bouquets.ToList();
+            var sizesBouquets = FlowerMagicEntities.GetContext().Sizes.ToList();
+            sizesBouquets.Insert(0, new Size
             {
                 Name = "Все размеры"
             });
-            SizeBoquetLstBx.ItemsSource = sizesBoquets;
+            StatusLstBx.ItemsSource = statusBouquet;
+            StatusLstBx.SelectedIndex = 1;
+            SizeBouquetLstBx.SelectedIndex = 0;
+            SizeBouquetLstBx.ItemsSource = sizesBouquets;
         }
-        private void UpdateBoquets()
+        private void UpdateBouquets()
         {
-            List<Boquet> filterBoquets;
-            if (SizeBoquetLstBx.SelectedIndex != 0)
-                filterBoquets = FilterService.FilterBoquets(SearchBoquetTxtBx.Text, (Size)SizeBoquetLstBx.SelectedItem);
+            List<Bouquet> filterBouquets = new List<Bouquet>();
+            if (SizeBouquetLstBx.SelectedIndex != 0&& StatusLstBx.SelectedIndex != 0)
+                filterBouquets = FilterService.FilterBouquets(SearchBouquetTxtBx.Text, (Size)SizeBouquetLstBx.SelectedItem, StatusLstBx.SelectedValue.ToString());
             else
-                filterBoquets = FilterService.FilterBoquets(SearchBoquetTxtBx.Text, null);
-
-            if (filterBoquets.Count == 0)
             {
-
+                if (SizeBouquetLstBx.SelectedIndex == 0 && StatusLstBx.SelectedIndex == 0)
+                    filterBouquets = FilterService.FilterBouquets(SearchBouquetTxtBx.Text, null, null);
+                if (SizeBouquetLstBx.SelectedIndex != 0 && StatusLstBx.SelectedIndex == 0)
+                    filterBouquets = FilterService.FilterBouquets(SearchBouquetTxtBx.Text, (Size)SizeBouquetLstBx.SelectedItem, null);
+                if (SizeBouquetLstBx.SelectedIndex == 0 && StatusLstBx.SelectedIndex != 0)
+                    filterBouquets = FilterService.FilterBouquets(SearchBouquetTxtBx.Text, null, StatusLstBx.SelectedValue.ToString());
             }
+            
 
-            LViewBoquets.ItemsSource = filterBoquets;
+            LViewBouquets.ItemsSource = filterBouquets;
         }
 
-        private void SearchBoquetTxtBx_TextChanged(object sender, TextChangedEventArgs e)
+        private void SearchBouquetTxtBx_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateBoquets();
+            UpdateBouquets();
         }
 
-        private void SizeBoquetLstBx_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SizeBouquetLstBx_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateBoquets();
+            UpdateBouquets();
         }
 
 
 
-        private void BttnOrdersBoquet_Click(object sender, RoutedEventArgs e)
+        private void BttnOrdersBouquet_Click(object sender, RoutedEventArgs e)
         {
             VisibilityWindowsService.OpenOrdersPg();
         }
 
-        private void BttnCreateBoquet_Click(object sender, RoutedEventArgs e)
+        private void BttnCreateBouquet_Click(object sender, RoutedEventArgs e)
         {
-            VisibilityWindowsService.OpenAdminEditBoquetPg(null);
+            VisibilityWindowsService.OpenAdminEditBouquetPg(null);
+        }
+
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            UpdateBouquets();
+        }
+
+        private void StatusLstBx_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateBouquets();
         }
     }
 }

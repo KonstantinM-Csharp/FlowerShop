@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:FlowerShop.UI.Pg.ClientPgs"
       mc:Ignorable="d" 
       d:DesignHeight="450" 
-      d:DesignWidth="800">
+      d:DesignWidth="800" IsVisibleChanged="Page_IsVisibleChanged">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"></ColumnDefinition>
@@ -30,23 +30,23 @@
                    HorizontalAlignment="Center" 
                    Content="Каталог товаров">
         </Label>
-        <TextBox x:Name="SearchBoquetTxtBx"
+        <TextBox x:Name="SearchBouquetTxtBx"
             Grid.Column="1"
             Grid.Row="1"
-            TextChanged="SearchBoquetTxtBx_TextChanged">
+            TextChanged="SearchBouquetTxtBx_TextChanged">
         </TextBox>
         <TextBlock Text="Выберите размер букета:"
                    Grid.Column="2"
                    Grid.Row="1"
                    VerticalAlignment="Top"></TextBlock>
-        <ComboBox x:Name="SizeBoquetLstBx"
+        <ComboBox x:Name="SizeBouquetLstBx"
                  Grid.Column="2"
                  Grid.Row="1"
-                 SelectionChanged="SizeBoquetLstBx_SelectionChanged"
+                 SelectionChanged="SizeBouquetLstBx_SelectionChanged"
                   DisplayMemberPath="Name">
         </ComboBox>
-
-        <ListView Name="LViewBoquets"
+        
+        <ListView Name="LViewBouquets"
           Grid.Row="2"
           Grid.Column="1"
           Grid.ColumnSpan="3">
