@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e102810d536f48eb95610499d620ad8f" Name="Diagram1">
+        <EntityTypeShape EntityType="FlowerMagicModel.Boquet" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerMagicModel.Order" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerMagicModel.OrderItem" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerMagicModel.Role" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerMagicModel.Size" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerMagicModel.sysdiagram" Width="1.5" PointX="2.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerMagicModel.User" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerMagicModel.UserRole" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="FlowerMagicModel.FK_Boquet_Size" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowerMagicModel.FK_OrderItem_Boquet" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowerMagicModel.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowerMagicModel.FK_OrderItem_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowerMagicModel.FK_UserRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowerMagicModel.FK_UserRole_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

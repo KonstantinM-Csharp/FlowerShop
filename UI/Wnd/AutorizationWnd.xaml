@@ -1,0 +1,63 @@
+﻿<Window x:Class="FlowerShop.UI.Wnd.AutorizationWnd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlowerShop.UI.Wnd"
+        mc:Ignorable="d"
+        Title="Вход в личный кабинет" 
+        MinHeight="530"
+        MaxHeight="530" 
+        MinWidth="520"
+        MaxWidth="520" 
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label 
+            Content="Магия цветов" />
+        <TextBlock Text="Введите логин:" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left" 
+            Margin="173,134,0,0" 
+            TextWrapping="Wrap" 
+            Width="150"/>
+        <TextBox Name="logInTxtBx"  
+                 Margin="173,150,153,312"
+                 TextChanged="LogInTxtBx_TextChanged"></TextBox>
+        <TextBlock VerticalAlignment="Top"
+                   HorizontalAlignment="Left" 
+                   Margin="173,206,0,0" 
+                   TextWrapping="Wrap" 
+                   Text="Введите пароль:"  
+                   Width="150"/>
+        <TextBox x:Name="tbPassword"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 Margin="173,224,0,0" 
+                 TextWrapping="Wrap"/>
+        <PasswordBox Name="pswrdBxPassword"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     Margin="173,224,0,0"
+                     PasswordChanged="pswrdBxPassword_PasswordChanged"/>
+        <CheckBox x:Name="chckPass" 
+                  Margin="0,228,10,233" 
+                  HorizontalAlignment="Right" 
+                  Checked="ShowPasswordChecked" 
+                  Unchecked="ShowPasswordUnchecked"
+                  Content="Показать пароль"></CheckBox>
+        <TextBlock Grid.Column="1" 
+                   Margin="205,265,202,199">
+            <Hyperlink Click="FogotPassword_Click">Забыли пароль?</Hyperlink></TextBlock>
+        <Button Name="enterBttn" 
+                Content="Войти" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="185,330,0,0"  
+                Height="37" 
+                Width="131"
+                Click="EnterBttn_Click"/>
+        <TextBlock Margin="151,411,153,53">
+                   <Hyperlink Click="Registration_Click">Нет аккаунта? Зарегистрироваться</Hyperlink>
+        </TextBlock>
+    </Grid>
+</Window>
