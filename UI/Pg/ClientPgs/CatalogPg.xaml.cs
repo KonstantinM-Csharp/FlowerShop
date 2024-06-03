@@ -69,5 +69,16 @@ namespace FlowerShop.UI.Pg.ClientPgs
         {
             UpdateBouquets();
         }
+
+        private void BttnOpenOrders_Click(object sender, RoutedEventArgs e)
+        {
+            VisibilityWindowsService.OpenClientOrdersPg();
+        }
+
+        private void BttnExit_Click(object sender, RoutedEventArgs e)
+        {
+            VisibilityWindowsService.OpenAutorizationWindow();
+            VisibilityWindowsService.CloseUserWnd();
+        }
     }
 }

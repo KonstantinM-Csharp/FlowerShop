@@ -31,5 +31,20 @@ namespace FlowerShop.UI.Pg.AdminPgs
         {
             VisibilityWindowsService.OpenOrdersPg();
         }
+
+        private void BtnAnalysSales_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnAnalysBoquets_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnAnalysCutomers_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

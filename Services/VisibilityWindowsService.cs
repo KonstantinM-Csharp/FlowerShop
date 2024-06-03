@@ -26,6 +26,10 @@ namespace FlowerShop.Services
             _userWnd.Show();
             OpenCatalogPg();
         }
+        public static void CloseUserWnd()
+        {
+            _userWnd.Close();
+        }
         public static void OpenUserWindowForAdmin()
         {
             _userWnd = new UserWnd();
@@ -59,6 +63,10 @@ namespace FlowerShop.Services
         public static void OpenAnalysPg()
         {
             PageNavigationService.NavigateToAnalys(_userWnd.MainFrame);
+        }
+        public static void OpenClientOrdersPg()
+        {
+            PageNavigationService.NavigateToClientOrders(_userWnd.MainFrame);
         }
     }
 }

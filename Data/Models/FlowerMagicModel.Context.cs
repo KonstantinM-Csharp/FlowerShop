@@ -17,7 +17,7 @@ namespace FlowerShop.Data.Models
     {
         private static FlowerMagicEntities _context;
         public FlowerMagicEntities()
-            : base("name=FlowerMagicEntities2")
+            : base("name=VikaGolovko")
         {
         }
         public static FlowerMagicEntities GetContext()

@@ -138,6 +138,9 @@
     <Compile Include="UI\Pg\ClientPgs\CheckPg.xaml.cs">
       <DependentUpon>CheckPg.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Pg\ClientPgs\ClientOrders.xaml.cs">
+      <DependentUpon>ClientOrders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UC\BasketItemCard.xaml.cs">
       <DependentUpon>BasketItemCard.xaml</DependentUpon>
     </Compile>
@@ -185,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Pg\ClientPgs\CheckPg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Pg\ClientPgs\ClientOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

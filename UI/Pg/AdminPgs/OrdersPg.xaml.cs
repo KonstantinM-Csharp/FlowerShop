@@ -26,11 +26,11 @@ namespace FlowerShop.UI.Pg.AdminPgs
         public OrdersPg()
         {
             InitializeComponent();
-            LViewBoquets.ItemsSource = FilterService.FilterOrders();
+            LViewBoquets.ItemsSource = FilterService.GetOrders();
         }
         private void UpdateOrders()
         {
-            LViewBoquets.ItemsSource = FilterService.FilterOrders();
+            LViewBoquets.ItemsSource = FilterService.GetOrders();
         }
 
         private void SearchBoquetTxtBx_TextChanged(object sender, TextChangedEventArgs e)

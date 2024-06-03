@@ -88,5 +88,11 @@ namespace FlowerShop.UI.Pg.AdminPgs
         {
             UpdateBouquets();
         }
+
+        private void BttnExit_Click(object sender, RoutedEventArgs e)
+        {
+            VisibilityWindowsService.OpenAutorizationWindow();
+            VisibilityWindowsService.CloseUserWnd();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Packaging;
+﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using FlowerShop.Data;
 using FlowerShop.Data.Models;
@@ -21,6 +22,9 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
 using Run = DocumentFormat.OpenXml.Wordprocessing.Run;
+using Table = DocumentFormat.OpenXml.Wordprocessing.Table;
+using TableCell = DocumentFormat.OpenXml.Wordprocessing.TableCell;
+using TableRow = DocumentFormat.OpenXml.Wordprocessing.TableRow;
 
 namespace FlowerShop.UI.Pg.ClientPgs
 {
@@ -59,51 +63,132 @@ namespace FlowerShop.UI.Pg.ClientPgs
             BasketService.ClearBasket();
             VisibilityWindowsService.OpenCatalogPg();
         }
-
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            // Создаем файл
-            string filePath = "order.docx";
-
-            using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(filePath, DocumentFormat.OpenXml.WordprocessingDocumentType.Document))
+            try
             {
-                MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
-                mainPart.Document = new Document();
-                Body body = new Body();
 
-                // Добавляем текст заголовка
-                AddTextToBody(body, "Чек");
 
-                // Проходим по каждому элементу ListView
-                foreach (var item in LVOrderItem.Items)
+                // Создаем файл
+                string filePath = "order.docx";
+
+                using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(filePath, DocumentFormat.OpenXml.WordprocessingDocumentType.Document))
                 {
-                    // Предполагаем, что TextBlock находится внутри UserControl
-                    if (LVOrderItem.ItemContainerGenerator.ContainerFromItem(item) is ListViewItem listViewItem)
+                    MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
+                    mainPart.Document = new Document();
+                    Body body = new Body();
+
+                    // Создаем таблицу
+                    Table table = new Table();
+
+                    // Создаем свойства таблицы (границы)
+                    TableProperties tblProps = new TableProperties(
+                        new TableBorders(
+                            new TopBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 },
+                            new BottomBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 },
+                            new LeftBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 },
+                            new RightBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 },
+                            new InsideHorizontalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 },
+                            new InsideVerticalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 12 }
+                        )
+                    );
+                    table.AppendChild(tblProps);
+
+                    // Добавляем заголовок
+                    AddRowToTable(table, "Чек", 2);
+
+                    // Добавляем дату и время заказа
+                    AddRowToTable(table, $"Дата и время заказа: {DateTime.Now}", 2);
+
+                    // Добавляем данные из TextBlock
+                    AddRowToTable(table, "Магазин Магия цветов", 2);
+                    AddRowToTable(table, "Покупатель:", userDataTxtBlck.Text);
+                    AddRowToTable(table, "Телефон", userPhoneTxtBlck.Text);
+
+                    // Добавляем заголовки столбцов для ListView
+                    AddRowToTable(table, "Название", "Количество", "Стоимость");
+
+                    // Добавляем данные из ListView
+                    foreach (var item in LVOrderItem.Items)
                     {
-                        CheckItem checkItem = FindVisualChild<CheckItem>(listViewItem);
-                        if (checkItem != null)
+                        if (LVOrderItem.ItemContainerGenerator.ContainerFromItem(item) is ListViewItem listViewItem)
                         {
-                            foreach (TextBlock textBlock in FindVisualChildren<TextBlock>(checkItem))
+                            CheckItem checkItem = FindVisualChild<CheckItem>(listViewItem);
+                            if (checkItem != null)
                             {
-                                AddTextToBody(body, textBlock.Text);
+                                var textBlocks = FindVisualChildren<TextBlock>(checkItem).ToList();
+                                if (textBlocks.Count == 3)
+                                {
+                                    string bouquetName = textBlocks[0].Text;
+                                    string bouquetCount = textBlocks[1].Text;
+                                    string bouquetCost = textBlocks[2].Text;
+                                    AddRowToTable(table, bouquetName, bouquetCount, bouquetCost);
+                                }
                             }
                         }
                     }
+
+                    // Добавляем итоговую сумму
+                    AddRowToTable(table, "Итого:", commonPriceTxtBlck.Text);
+
+                    body.Append(table);
+                    mainPart.Document.Append(body);
+                    mainPart.Document.Save();
                 }
 
-                mainPart.Document.Append(body);
+                MessageBox.Show("Документ сохранен как " + filePath);
+                }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
-
-            MessageBox.Show("Документ сохранен как " + filePath);
         }
 
-        private void AddTextToBody(Body body, string text)
+        private void AddRowToTable(Table table, string col1Text, string col2Text)
         {
-            Paragraph para = new Paragraph();
-            Run run = new Run();
-            run.Append(new Text(text));
-            para.Append(run);
-            body.Append(para);
+            TableRow tr = new TableRow();
+
+            TableCell tc1 = new TableCell(new Paragraph(new Run(new Text(col1Text))));
+            TableCell tc2 = new TableCell(new Paragraph(new Run(new Text(col2Text))));
+
+            tr.Append(tc1, tc2);
+            table.Append(tr);
+        }
+
+        private void AddRowToTable(Table table, string col1Text, int colSpan = 1)
+        {
+            TableRow tr = new TableRow();
+            TableCellProperties tcp = new TableCellProperties();
+            if (colSpan > 1)
+            {
+                GridSpan gridSpan = new GridSpan() { Val = colSpan };
+                tcp.Append(gridSpan);
+            }
+
+            TableCell tc = new TableCell(new Paragraph(new Run(new Text(col1Text))));
+            tc.Append(tcp);
+            tr.Append(tc);
+            table.Append(tr);
+        }
+
+        private void AddRowToTable(Table table, string col1Text, string col2Text, string col3Text)
+        {
+            TableRow tr = new TableRow();
+
+            TableCell tc1 = new TableCell(new Paragraph(new Run(new Text(col1Text))));
+            TableCell tc2 = new TableCell(new Paragraph(new Run(new Text(col2Text))));
+            TableCell tc3 = new TableCell(new Paragraph(new Run(new Text(col3Text))));
+
+            // Устанавливаем свойства для ячеек таблицы
+            TableCellProperties tcp1 = new TableCellProperties(new TableCellWidth { Type = TableWidthUnitValues.Auto });
+            TableCellProperties tcp2 = new TableCellProperties(new TableCellWidth { Type = TableWidthUnitValues.Auto });
+            TableCellProperties tcp3 = new TableCellProperties(new TableCellWidth { Type = TableWidthUnitValues.Auto });
+            tc1.Append(tcp1);
+            tc2.Append(tcp2);
+            tc3.Append(tcp3);
+
+            tr.Append(tc1, tc2, tc3);
+            table.Append(tr);
         }
 
         // Вспомогательный метод для поиска дочернего элемента заданного типа

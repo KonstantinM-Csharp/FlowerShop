@@ -21,16 +21,21 @@ namespace FlowerShop.Services
                 bouquets = bouquets.Where(x => x.Status == ParseService.ParseStringToStatus(status)).ToList();
             return bouquets;
         }
-        public static List<Order> FilterOrders()
+        public static List<Order> GetOrders()
         {
             var orders = FlowerMagicEntities.GetContext().Orders.ToList();
             return orders;
         }
-
+        public static List<Order> GetOrders(User user)
+        {
+            var orders = FlowerMagicEntities.GetContext().Orders.Where(x=>x.UserId==user.Id).ToList();
+            return orders;
+        }
         public static List<OrderItem> GetOrderItemsByOrder(Order order)
         {
-            return FlowerMagicEntities.GetContext().OrderItems.Where(x => x.Order.Id == order.Id).ToList();
+            var orderItems = FlowerMagicEntities.GetContext().OrderItems.Where(x => x.Order.Id == order.Id).ToList();
 
+            return orderItems;
         }
     }
 }

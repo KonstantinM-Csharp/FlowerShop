@@ -31,7 +31,8 @@ namespace FlowerShop.UI.UC
         {
 
             var order = DataContext as Order;
-            LViewBoquets.ItemsSource = FilterService.GetOrderItemsByOrder(order);
+            if(order != null) 
+                    LViewBoquets.ItemsSource = FilterService.GetOrderItemsByOrder(order);
         }
     }
 }

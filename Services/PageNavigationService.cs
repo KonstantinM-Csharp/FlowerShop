@@ -21,6 +21,7 @@ namespace FlowerShop.Services
         private static CheckPg checkPg = new CheckPg();
         private static OrdersPg ordersPg = new OrdersPg();
         private static AnalysPg analysPg = new AnalysPg();
+        private static ClientOrders clientOrdersPg = new ClientOrders();
         public static void NavigateToBasket(Frame frame)
         {
             frame.Navigate(basketPg);
@@ -49,6 +50,10 @@ namespace FlowerShop.Services
         public static void NavigateToAnalys(Frame frame)
         {
             frame.Navigate(analysPg);
+        }
+        public static void NavigateToClientOrders(Frame frame)
+        {
+            frame.Navigate(clientOrdersPg);
         }
     }
 }
